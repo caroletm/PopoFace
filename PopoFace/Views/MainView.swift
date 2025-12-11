@@ -13,6 +13,11 @@ struct MainView: View {
             Image(systemName: "dog")
                 .imageScale(.large)
                 .foregroundStyle(.tint)
+            
+            Image(.tomato)
+                .resizable()
+                .scaledToFit()
+                .frame(width : 200, height: 200)
             Text("Bienvenu sur PopoFace!")
         }
         .padding()
