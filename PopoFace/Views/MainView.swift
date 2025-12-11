@@ -17,7 +17,8 @@ struct MainView: View {
             Image(.tomato)
                 .resizable()
                 .scaledToFit()
-                .frame(width : 200, height: 200)
+                .frame(width : 90, height: 90)
+                .clipShape(Circle())
             Text("Bienvenu sur PopoFace!")
         }
         .padding()
