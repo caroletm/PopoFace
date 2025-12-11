@@ -5,29 +5,44 @@
 //  Created by Apprenant156 on 11/12/2025.
 //
 import Foundation
-import Foundation
 import AVFoundation
 import Vision
 import Combine
+import CoreImage
 
-final class FaceDetector: NSObject, ObservableObject {
-    @Published var faceDetected: Bool = false
+class FaceDetector: NSObject, ObservableObject {
+    @Published var faceBoundingBox: CGRect = .zero   //  detecter le visage
 
-    private let sequenceHandler = VNSequenceRequestHandler()
+    private let request = VNDetectFaceRectanglesRequest()
+    private let handler = VNSequenceRequestHandler()
 
-    func analyze(_ sampleBuffer: CMSampleBuffer) {
-        guard let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else { return }
+    func analyze(_ buffer: CMSampleBuffer) {
+        guard let pixelBuffer = CMSampleBufferGetImageBuffer(buffer) else { return }
 
-        let request = VNDetectFaceRectanglesRequest { [weak self] request, error in
-            guard let self = self else { return }
-            let hasFace = (request.results?.first as? VNFaceObservation) != nil
+        let ciImage = CIImage(cvPixelBuffer: pixelBuffer)
+        let imageSize = ciImage.extent.size
+
+        do {
+            try handler.perform([request], on: pixelBuffer)
+
             DispatchQueue.main.async {
-                self.faceDetected = hasFace
-            }
-        }
+                if let face = self.request.results?.first as? VNFaceObservation {
 
-        try? sequenceHandler.perform([request], on: pixelBuffer)
+                    // Vision donne un CGRect normalisé (0-1). On le convertit.
+                    let w = face.boundingBox.width * imageSize.width
+                    let h = face.boundingBox.height * imageSize.height
+                    let x = face.boundingBox.minX * imageSize.width
+                    let y = (1 - face.boundingBox.minY - face.boundingBox.height) * imageSize.height
+
+                    self.faceBoundingBox = CGRect(x: x, y: y, width: w, height: h)
+                } else {
+                    self.faceBoundingBox = .zero
+                }
+            }
+
+        } catch {
+            print("Vision error:", error.localizedDescription)
+        }
     }
 }
-
 

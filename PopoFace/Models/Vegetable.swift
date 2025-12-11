@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Vegetable : Identifiable {
+struct Vegetable : Identifiable, FaceItem {
     var id : UUID = UUID()
     var nom : String
     var image : String

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Celebrity : Identifiable {
+struct Celebrity : Identifiable, FaceItem {
     var id : UUID = UUID()
     var nom : String
     var image : String
