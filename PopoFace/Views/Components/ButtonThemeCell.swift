@@ -9,10 +9,12 @@ import SwiftUI
 
 struct ButtonThemeCell: View {
     let image: String
-    @State var isSelect: Bool
+    let isSelect: Bool
+    let action: () -> Void
+    
     var body: some View {
         Button{
-            isSelect.toggle()
+            action()
         }label: {
             ZStack{
                 Circle()
@@ -31,7 +33,9 @@ struct ButtonThemeCell: View {
 
 #Preview {
     ZStack{
-        ButtonThemeCell(image: "Applefruit", isSelect: false)
+        ButtonThemeCell(image: "apple", isSelect: false) {
+            print("Button tapped")
+        }
     }
     .background(.red)
 }

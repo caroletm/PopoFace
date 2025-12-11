@@ -57,15 +57,35 @@ struct ContentView: View {
                 // Bouton Start/Stop
                 VStack {
                     Spacer()
-                    Button(action: { startStopRoulette() }) {
-                        Text(currentControllerIsRunning() ? "Stop" : "Start")
+                    
+                    Button {
+                        switch currentTheme {
+                            case .celebrity:
+                                celebrityController.running ? celebrityController.stop() : celebrityController.start()
+                            case .fruit:
+                                fruitController.running ? fruitController.stop() : fruitController.start()
+                            case .vegetable:
+                                vegetableController.running ? vegetableController.stop() : vegetableController.start()
+                        }
+                    } label: {
+                        Text("Lancer")
+                            .font(.largeTitle)
                             .bold()
-                            .frame(width: 120, height: 50)
-                            .background(Color.blue)
-                            .foregroundColor(.white)
-                            .cornerRadius(12)
-                            .shadow(radius: 5)
+                            .foregroundStyle(.black)
+                            .frame(width: 200)
+                            .padding()
+                            .background {
+                                RoundedRectangle(cornerRadius: 40)
+                                    .fill(
+                                        LinearGradient(
+                                            colors: [.yellowClear, .yellowBlack],
+                                            startPoint: .top,
+                                            endPoint: .bottom
+                                        )
+                                    )
+                            }
                     }
+
                     .padding(.bottom, 60)
                 }
             }
@@ -76,7 +96,7 @@ struct ContentView: View {
             )) {
                 Alert(
                     title: Text("Résultat"),
-                    message: Text("Tu es : \(getName())"),
+                    message: Text("Tu es un(e) : \(getName())"),
                     dismissButton: .default(Text("OK"))
                 )
             }
