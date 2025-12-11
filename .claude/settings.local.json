@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(rm:*)",
+      "Bash(xcodebuild:*)",
+      "Bash(git add:*)",
+      "Bash(git commit -m \"$(cat <<''EOF''\nRemove duplicate PopoFace.xcodeproj from subdirectory\n\nCleaned up project structure by removing the duplicate xcodeproj file in PopoFace/PopoFace.xcodeproj. The main project file at the root (PopoFace.xcodeproj) is the correct one and properly references all source files.\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
