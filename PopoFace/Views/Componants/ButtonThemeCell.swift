@@ -31,7 +31,7 @@ struct ButtonThemeCell: View {
 
 #Preview {
     ZStack{
-        ButtonThemeCell(image: "Apple", isSelect: false)
+        ButtonThemeCell(image: "Applefruit", isSelect: false)
     }
     .background(.red)
 }
