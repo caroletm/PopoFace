@@ -16,8 +16,8 @@ struct ButtonThemeCell: View {
         }label: {
             ZStack{
                 Circle()
-                    .fill(isSelect ? .gray.opacity(0.3) : .clear)
-                    .glassEffect(.clear)
+                    .fill(.clear)
+                    .glassEffect(isSelect ? .regular : .clear)
                     .frame(width: 64, height: 64)
                 Image(image)
                     .resizable()
@@ -34,5 +34,4 @@ struct ButtonThemeCell: View {
         ButtonThemeCell(image: "Apple", isSelect: false)
     }
     .background(.red)
-   
 }
