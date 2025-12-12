@@ -25,9 +25,10 @@ struct ButtonThemeCell: View {
                     .resizable()
                     .scaledToFit()
                     .frame(width: 34, height: 34)
+                    .clipShape(Circle())
             }
         }
-      
+
     }
 }
 

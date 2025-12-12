@@ -11,27 +11,32 @@ struct CardCell: View {
     @Binding var image: String
     @Binding var name: String
     var body: some View {
-        ZStack{
-            RoundedRectangle(cornerRadius: 8)
-                .fill(.clear)
-                .glassEffect(in: .rect(cornerRadius: 26))
-                .frame(width: 155, height: 155)
-            VStack{
-                Image(image)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 90, height: 90)
-                    .clipShape(Circle())
-                RoundedRectangle(cornerRadius: 30)
-                    .fill(.blue)
-                    .frame(width: 123, height: 30)
-                    .overlay {
-                        Text(name)
-                            .font(.title2.bold())
-                            .foregroundStyle(.white)
-                    }
-            }
+        VStack(spacing: 16) {
+            Image(image)
+                .resizable()
+                .scaledToFill()
+                .frame(width: 135, height: 135)
+                .clipShape(Circle())
+
+            Text(name)
+                .font(.title.bold())
+                .foregroundStyle(.white)
+                .padding(.horizontal, 20)
+                .padding(.vertical, 10)
+                .background(
+                    RoundedRectangle(cornerRadius: 30)
+                        .fill(.blue)
+                )
+                .lineLimit(1)
+                .minimumScaleFactor(0.5)
         }
+        .padding()
+        .frame(width: 250, height: 250)
+        .background(
+            RoundedRectangle(cornerRadius: 30)
+                .fill(.clear)
+                .glassEffect(in: .rect(cornerRadius: 30))
+        )
     }
 }
 

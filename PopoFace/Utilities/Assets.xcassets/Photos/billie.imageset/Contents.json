@@ -1,0 +1,21 @@
+{
+  "images" : [
+    {
+      "filename" : "860_billie_elish_be_hte_title_cover_final_ed.jpg",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

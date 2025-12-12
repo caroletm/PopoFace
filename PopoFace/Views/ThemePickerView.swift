@@ -16,32 +16,29 @@ struct ThemePickerView: View {
     @Binding var currentTheme: Theme
 
     var body: some View {
-        HStack(spacing: 20) {
+        VStack(spacing: 20) {
             ButtonThemeCell(
-                image: "taylor", // ou une image représentative des célébrités
+                image: "etoile",
                 isSelect: currentTheme == .celebrity
             ) {
                 currentTheme = .celebrity
             }
-            
+
             ButtonThemeCell(
-                image: "apple",
+                image: "Applefruit",
                 isSelect: currentTheme == .fruit
             ) {
                 currentTheme = .fruit
             }
-            
+
             ButtonThemeCell(
-                image: "carrot",
+                image: "Carotte",
                 isSelect: currentTheme == .vegetable
             ) {
                 currentTheme = .vegetable
             }
         }
         .padding()
-        .background(.ultraThinMaterial)
-        .clipShape(RoundedRectangle(cornerRadius: 20))
-        .shadow(radius: 5)
     }
 }
 

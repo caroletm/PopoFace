@@ -15,8 +15,9 @@ struct RouletteView<T: Identifiable>: View {
         if controller.running {
             Image(getImage(controller.items[controller.currentIndex]))
                 .resizable()
-                .scaledToFit()
-                .frame(width: 200, height: 200)
+                .scaledToFill()
+                .frame(width: 150, height: 150)
+                .clipShape(Circle())
                 .onTapGesture { controller.stop() }
         }
     }
