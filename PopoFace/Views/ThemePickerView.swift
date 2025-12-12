@@ -38,7 +38,6 @@ struct ThemePickerView: View {
                 currentTheme = .vegetable
             }
         }
-        .padding()
     }
 }
 

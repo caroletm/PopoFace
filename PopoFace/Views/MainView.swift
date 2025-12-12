@@ -80,40 +80,47 @@ struct MainView: View {
                     Spacer()
                 }
 
-                // Picker thème avec bouton toggle (aligné avec le bouton Lancer)
+                // Bouton Palette Logo (position fixe)
                 VStack {
                     Spacer()
                     HStack {
                         Spacer()
-                        VStack(spacing: 20) {
-                            // Boutons de catégories (affichés conditionnellement)
-                            if showCategoryButtons {
-                                ThemePickerView(currentTheme: $currentTheme)
-                                    .transition(.move(edge: .bottom).combined(with: .opacity))
+                        Button {
+                            withAnimation(.spring()) {
+                                showCategoryButtons.toggle()
                             }
+                        } label: {
+                            ZStack {
+                                Circle()
+                                    .fill(.clear)
+                                    .glassEffect(in: .circle)
+                                    .frame(width: 64, height: 64)
 
-                            // Bouton Palette Logo
-                            Button {
-                                withAnimation(.spring()) {
-                                    showCategoryButtons.toggle()
-                                }
-                            } label: {
-                                ZStack {
-                                    Circle()
-                                        .fill(.clear)
-                                        .glassEffect(in: .circle)
-                                        .frame(width: 64, height: 64)
-
-                                    Image("Palette Logo")
-                                        .resizable()
-                                        .scaledToFit()
-                                        .frame(width: 40, height: 40)
-                                }
+                                Image("Palette Logo")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 40, height: 40)
                             }
                         }
                         .padding(.trailing, 20)
                     }
                     .padding(.bottom, 60)
+                    .overlay(alignment: .bottomTrailing) {
+                        // Boutons de catégories en overlay (au-dessus du bouton Palette)
+                        if showCategoryButtons {
+                            HStack {
+                                Spacer()
+                                VStack(spacing: 20) {
+                                    ThemePickerView(currentTheme: $currentTheme)
+                                        .transition(.move(edge: .bottom).combined(with: .opacity))
+                                    Spacer()
+                                        .frame(height: 84) // Espace pour ne pas chevaucher le bouton
+                                }
+                            }
+                            .padding(.trailing, 20)
+                            .padding(.bottom, 60)
+                        }
+                    }
                 }
 
                 // Bouton Start/Stop
