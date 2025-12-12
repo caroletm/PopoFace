@@ -23,8 +23,8 @@ var leonardo : Celebrity = Celebrity(nom: "Leonardo DiCaprio", image: "leonardo"
 var ariana : Celebrity = Celebrity(nom: "Ariana Grande", image: "ariana")
 var drake : Celebrity = Celebrity(nom: "Drake", image: "drake")
 var margot : Celebrity = Celebrity(nom: "Margot Robbie", image: "margot")
-var rihanna : Celebrity = Celebrity(nom: "Rihanna", image: "rihanna")
-var cristiano : Celebrity = Celebrity(nom: "Cristiano Ronaldo", image: "cristiano")
+var rihanna : Celebrity = Celebrity(nom: "Djamel Debout", image: "jame")
+var cristiano : Celebrity = Celebrity(nom: "L'homme mystère", image: "myst")
 var beyonce : Celebrity = Celebrity(nom: "Beyoncé", image: "beyonce")
 
 let celebrities : [Celebrity] = [taylor, timothee, kylian, zendaya, theRock, billie, leonardo, ariana, drake, margot, rihanna, cristiano, beyonce]
