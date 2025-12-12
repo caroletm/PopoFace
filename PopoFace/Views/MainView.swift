@@ -16,6 +16,9 @@ struct MainView: View {
     @StateObject private var fruitController = RouletteController(items: fruits)
     @StateObject private var vegetableController = RouletteController(items: vegetables)
 
+    @State private var showCategoryButtons = false
+    @State private var showShareSheet = false
+
     var body: some View {
         GeometryReader { geo in
             let faceRect = convert(faceDetector.faceBoundingBox, in: geo)
@@ -54,13 +57,63 @@ struct MainView: View {
                     Spacer()
                 }
 
-                // Picker thème
+                // Bouton de partage en haut à droite
+                VStack {
+                    HStack {
+                        Spacer()
+                        Button {
+                            showShareSheet = true
+                        } label: {
+                            Image(systemName: "square.and.arrow.up")
+                                .font(.title2)
+                                .foregroundColor(.white)
+                                .padding()
+                                .background(
+                                    Circle()
+                                        .fill(.clear)
+                                        .glassEffect(in: .circle)
+                                )
+                        }
+                        .padding(.top, 60)
+                        .padding(.trailing, 20)
+                    }
+                    Spacer()
+                }
+
+                // Picker thème avec bouton toggle (aligné avec le bouton Lancer)
                 VStack {
                     Spacer()
                     HStack {
                         Spacer()
-                        ThemePickerView(currentTheme: $currentTheme)
+                        VStack(spacing: 20) {
+                            // Boutons de catégories (affichés conditionnellement)
+                            if showCategoryButtons {
+                                ThemePickerView(currentTheme: $currentTheme)
+                                    .transition(.move(edge: .bottom).combined(with: .opacity))
+                            }
+
+                            // Bouton Palette Logo
+                            Button {
+                                withAnimation(.spring()) {
+                                    showCategoryButtons.toggle()
+                                }
+                            } label: {
+                                ZStack {
+                                    Circle()
+                                        .fill(.clear)
+                                        .glassEffect(in: .circle)
+                                        .frame(width: 64, height: 64)
+
+                                    Image("Palette Logo")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 40, height: 40)
+                                }
+                            }
+                        }
+                        .padding(.trailing, 20)
                     }
+                    .padding(.bottom, 60)
                 }
 
                 // Bouton Start/Stop
@@ -100,6 +153,9 @@ struct MainView: View {
             }
         }
         .ignoresSafeArea()
+        .sheet(isPresented: $showShareSheet) {
+            ShareSheet(activityItems: ["Découvre PopoFace ! 🎭"])
+        }
     }
 
     // MARK: - Helpers
@@ -197,4 +253,20 @@ struct MainView: View {
             height: rect.height / 1280 * viewHeight
         )
     }
+}
+
+// MARK: - ShareSheet
+struct ShareSheet: UIViewControllerRepresentable {
+    var activityItems: [Any]
+    var applicationActivities: [UIActivity]? = nil
+
+    func makeUIViewController(context: Context) -> UIActivityViewController {
+        let controller = UIActivityViewController(
+            activityItems: activityItems,
+            applicationActivities: applicationActivities
+        )
+        return controller
+    }
+
+    func updateUIViewController(_ uiViewController: UIActivityViewController, context: Context) {}
 }
